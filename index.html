@@ -8,4 +8,20 @@
 
 </header>
 
+<body>
+    <script>
+        const input = document.getElementById("searchInput");
+        const lista = document.getElementById("lista").getElementsByTagName("li");
+
+        input.addEventListener("input", function () {
+            const termo = input.value.toLowerCase();
+            for (let item of lista) {
+                const texto = item.textContent.toLowerCase();
+                item.style.display = texto.includes(termo) ? "list-item" : "none";
+            }
+        });
+    </script>
+
+</body>
+
 </html>
