@@ -1,14 +1,27 @@
 <!DOCTYPE html>
-<html>
-<header>
-    <form id="searchForm">
-        <input type="text" id="searchInput" placeholder="Pesquisar...">
-        <button type="submit">Buscar</button>
-    </form>
+<html lang="pt-BR">
 
-</header>
+<head>
+    <meta charset="UTF-8">
+    <title>Busca Simples</title>
+</head>
 
 <body>
+    <header>
+        <form id="searchForm">
+            <input type="text" id="searchInput" placeholder="Pesquisar...">
+            <button type="submit">Buscar</button>
+        </form>
+    </header>
+
+    <ul id="lista">
+        <li>Banana</li>
+        <li>Maçã</li>
+        <li>Uva</li>
+        <li>Laranja</li>
+        <li>Abacaxi</li>
+    </ul>
+
     <script>
         const input = document.getElementById("searchInput");
         const lista = document.getElementById("lista").getElementsByTagName("li");
@@ -21,7 +34,6 @@
             }
         });
     </script>
-
 </body>
 
 </html>
