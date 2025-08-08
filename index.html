@@ -3,10 +3,25 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Busca Simples</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca com Menu</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+    <!-- Botão de Menu -->
+    <button id="menuBtn" class="menu-btn">&#9776;</button>
+
+    <!-- Menu Lateral -->
+    <nav id="sideMenu" class="side-menu">
+        <a href="#">Início</a>
+        <a href="#">Sobre</a>
+        <a href="#">Serviços</a>
+        <a href="#">Contato</a>
+    </nav>
+
+    <!-- Conteúdo principal -->
     <header>
         <form id="searchForm">
             <input type="text" id="searchInput" placeholder="Pesquisar...">
@@ -23,6 +38,15 @@
     </ul>
 
     <script>
+        // Controle do menu
+        const menuBtn = document.getElementById('menuBtn');
+        const sideMenu = document.getElementById('sideMenu');
+
+        menuBtn.addEventListener('click', () => {
+            sideMenu.classList.toggle('open');
+        });
+
+        // Filtro de busca
         const input = document.getElementById("searchInput");
         const lista = document.getElementById("lista").getElementsByTagName("li");
 
@@ -34,6 +58,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>
