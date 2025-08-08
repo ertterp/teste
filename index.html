@@ -1,58 +1,161 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busca com Menu</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Loja Exemplo</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+    <header class="topbar">
+        <div class="brand">
+            <button id="menuBtn" class="hamburger" aria-label="Abrir menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a class="logo" href="#">Loja<span>+</span></a>
+        </div>
 
-    <!-- Botão de Menu -->
-    <button id="menuBtn" class="menu-btn">&#9776;</button>
-
-    <!-- Menu Lateral -->
-    <nav id="sideMenu" class="side-menu">
-        <a href="#">Início</a>
-        <a href="#">Sobre</a>
-        <a href="#">Serviços</a>
-        <a href="#">Contato</a>
-    </nav>
-
-    <!-- Conteúdo principal -->
-    <header>
-        <form id="searchForm">
-            <input type="text" id="searchInput" placeholder="Pesquisar...">
-            <button type="submit">Buscar</button>
+        <form id="searchForm" class="search" role="search" onsubmit="return false;">
+            <input id="searchInput" type="search" placeholder="Buscar categorias, marcas ou coleções..." aria-label="Buscar" />
+            <button type="button" id="searchClear" title="Limpar pesquisa">✕</button>
         </form>
+
+        <nav class="top-actions">
+            <a href="#" class="btn ghost">Entrar</a>
+            <a href="#" class="btn primary">Carrinho</a>
+        </nav>
     </header>
 
+    <!-- Menu lateral -->
+    <aside id="sideMenu" class="side-menu" aria-hidden="true">
+        <div class="side-header">
+            <h3>Menu</h3>
+            <button id="closeMenu" aria-label="Fechar menu">✕</button>
+        </div>
+        <ul class="side-list">
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Novidades</a></li>
+            <li><a href="#">Categorias</a></li>
+            <li><a href="#">Ofertas</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </aside>
 
+    <main class="container">
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Bem-vindo à Loja+</h1>
+                <p>Design limpo, cores que conversam e tudo pronto para vender.</p>
+            </div>
+            <div class="hero-card">
+                <p class="muted">Comece procurando uma coleção ou categoria:</p>
+                <div class="search-sample">Ex.: <button class="chip">Roupas</button> <button class="chip">Eletrônicos</button> <button class="chip">Casa</button></div>
+            </div>
+        </section>
+
+        <section class="content">
+            <h2>Categorias</h2>
+            <p class="muted small">A busca filtra as categorias abaixo (é só digitar). Não há produtos por enquanto.</p>
+
+            <ul id="categories" class="categories">
+                <li>Roupas</li>
+                <li>Eletrônicos</li>
+                <li>Casa & Decoração</li>
+                <li>Beleza</li>
+                <li>Esportes</li>
+                <li>Infantil</li>
+                <li>Alimentos</li>
+                <li>Livros</li>
+                <li>Garden</li>
+            </ul>
+
+            <div id="noResults" class="no-results" hidden>
+                <p>Nenhuma categoria encontrada para sua busca.</p>
+            </div>
+
+            <div class="placeholder-grid">
+                <div class="placeholder">
+                    <h3>Área de Produtos</h3>
+                    <p class="muted">Sem produtos ainda — adicione itens na próxima etapa.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© <span id="year"></span> Loja+. Todos os direitos reservados.</p>
+    </footer>
 
     <script>
-        // Controle do menu
+        // ====== Menu toggle + animação hamburger ======
         const menuBtn = document.getElementById('menuBtn');
         const sideMenu = document.getElementById('sideMenu');
+        const closeMenu = document.getElementById('closeMenu');
+
+        function openMenu() {
+            sideMenu.classList.add('open');
+            sideMenu.setAttribute('aria-hidden', 'false');
+            menuBtn.classList.add('is-active');
+        }
+        function closeMenuFn() {
+            sideMenu.classList.remove('open');
+            sideMenu.setAttribute('aria-hidden', 'true');
+            menuBtn.classList.remove('is-active');
+        }
 
         menuBtn.addEventListener('click', () => {
-            sideMenu.classList.toggle('open');
+            if (sideMenu.classList.contains('open')) closeMenuFn();
+            else openMenu();
         });
-
-        // Filtro de busca
-        const input = document.getElementById("searchInput");
-        const lista = document.getElementById("lista").getElementsByTagName("li");
-
-        input.addEventListener("input", function () {
-            const termo = input.value.toLowerCase();
-            for (let item of lista) {
-                const texto = item.textContent.toLowerCase();
-                item.style.display = texto.includes(termo) ? "list-item" : "none";
+        closeMenu.addEventListener('click', closeMenuFn);
+        // fecha ao clicar fora (em telas menores)
+        document.addEventListener('click', (e) => {
+            if (!sideMenu.contains(e.target) && !menuBtn.contains(e.target) && sideMenu.classList.contains('open')) {
+                closeMenuFn();
             }
         });
+
+        // ====== Busca funcional (filtra categorias) ======
+        const input = document.getElementById('searchInput');
+        const categories = document.getElementById('categories').getElementsByTagName('li');
+        const noResults = document.getElementById('noResults');
+        const clearBtn = document.getElementById('searchClear');
+
+        function filterCategories(term) {
+            term = term.trim().toLowerCase();
+            let hits = 0;
+            for (let item of categories) {
+                const txt = item.textContent.toLowerCase();
+                const show = txt.includes(term);
+                item.style.display = show ? 'list-item' : 'none';
+                if (show) hits++;
+            }
+            noResults.hidden = hits > 0 || term === '';
+        }
+
+        input.addEventListener('input', (e) => {
+            filterCategories(e.target.value);
+            clearBtn.style.display = e.target.value ? 'inline' : 'none';
+        });
+
+        clearBtn.addEventListener('click', () => {
+            input.value = '';
+            filterCategories('');
+            clearBtn.style.display = 'none';
+            input.focus();
+        });
+
+        // chips de busca rápida
+        document.querySelectorAll('.chip').forEach(ch => {
+            ch.addEventListener('click', () => {
+                input.value = ch.textContent;
+                filterCategories(input.value);
+                clearBtn.style.display = 'inline';
+            });
+        });
+
+        // rodapé ano atual
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
-
 </body>
-
 </html>
