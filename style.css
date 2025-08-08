@@ -4,9 +4,7 @@
     --text: #0f1724;
     --muted: #5b6b75;
     --accent: #138a72;
-    /* teal */
     --accent-2: #ff7a59;
-    /* coral para chamar atenção */
     --shadow: rgba(15, 23, 36, 0.06);
     --radius: 12px;
     --glass: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.5));
