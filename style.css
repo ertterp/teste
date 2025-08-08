@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Botão do menu */
+.menu-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 24px;
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1001;
+    transition: transform 0.3s ease; /* Adiciona transição de transformação */
+}
+
+/* Efeito de rotação ao clicar */
+.menu-btn.open {
+    transform: rotate(90deg); /* Rotaciona o botão */
+}
+
+/* Menu lateral */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: #444;
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.side-menu a {
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.side-menu a:hover {
+    background: #555;
+}
+
+/* Menu aberto */
+.side-menu.open {
+    left: 0;
+}
+
+/* Área de busca */
+header {
+    margin: 80px auto 20px;
+    text-align: center;
+}
+
+#searchInput {
+    padding: 10px;
+    font-size: 16px;
+}
+
+#lista {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+#lista li {
+    padding: 8px;
+    font-size: 18px;
+}
