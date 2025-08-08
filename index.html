@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Loja Exemplo</title>
     <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
     <header class="topbar">
         <div class="brand">
@@ -16,7 +18,8 @@
         </div>
 
         <form id="searchForm" class="search" role="search" onsubmit="return false;">
-            <input id="searchInput" type="search" placeholder="Buscar categorias, marcas ou coleções..." aria-label="Buscar" />
+            <input id="searchInput" type="search" placeholder="Buscar categorias, marcas ou coleções..."
+                aria-label="Buscar" />
             <button type="button" id="searchClear" title="Limpar pesquisa">✕</button>
         </form>
 
@@ -26,7 +29,6 @@
         </nav>
     </header>
 
-    <!-- Menu lateral -->
     <aside id="sideMenu" class="side-menu" aria-hidden="true">
         <div class="side-header">
             <h3>Menu</h3>
@@ -49,7 +51,8 @@
             </div>
             <div class="hero-card">
                 <p class="muted">Comece procurando uma coleção ou categoria:</p>
-                <div class="search-sample">Ex.: <button class="chip">Roupas</button> <button class="chip">Eletrônicos</button> <button class="chip">Casa</button></div>
+                <div class="search-sample">Ex.: <button class="chip">Roupas</button> <button
+                        class="chip">Eletrônicos</button> <button class="chip">Casa</button></div>
             </div>
         </section>
 
@@ -87,7 +90,6 @@
     </footer>
 
     <script>
-        // ====== Menu toggle + animação hamburger ======
         const menuBtn = document.getElementById('menuBtn');
         const sideMenu = document.getElementById('sideMenu');
         const closeMenu = document.getElementById('closeMenu');
@@ -108,14 +110,12 @@
             else openMenu();
         });
         closeMenu.addEventListener('click', closeMenuFn);
-        // fecha ao clicar fora (em telas menores)
         document.addEventListener('click', (e) => {
             if (!sideMenu.contains(e.target) && !menuBtn.contains(e.target) && sideMenu.classList.contains('open')) {
                 closeMenuFn();
             }
         });
 
-        // ====== Busca funcional (filtra categorias) ======
         const input = document.getElementById('searchInput');
         const categories = document.getElementById('categories').getElementsByTagName('li');
         const noResults = document.getElementById('noResults');
@@ -145,7 +145,6 @@
             input.focus();
         });
 
-        // chips de busca rápida
         document.querySelectorAll('.chip').forEach(ch => {
             ch.addEventListener('click', () => {
                 input.value = ch.textContent;
@@ -154,8 +153,8 @@
             });
         });
 
-        // rodapé ano atual
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
+
 </html>
